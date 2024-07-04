@@ -1,14 +1,15 @@
+// src/components/Component1.jsx
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 
 const Component1 = () => {
   const [input, setInput] = useState('');
-  const { entries, setEntries } = useContext(AppContext);
+  const { setEntries } = useContext(AppContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const entry = isNaN(input) ? input : Number(input);
-    setEntries([...entries, entry]);
+    setEntries((prevEntries) => [...prevEntries, entry]);
     setInput('');
   };
 

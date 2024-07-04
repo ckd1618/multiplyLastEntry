@@ -1,29 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
 
 const Component2 = () => {
-  const { entries, setEntries, setMultiplyCallback } = useContext(AppContext);
+  const { entries, multiplyCallback } = useContext(AppContext);
   const [internalMultiplier, setInternalMultiplier] = useState(2);
 
-  const multiplyLastEntry = (multiplier) => {
-    if (entries.length > 0) {
-      const lastEntry = entries[entries.length - 1];
-      let newEntry;
-      if (typeof lastEntry === 'number') {
-        newEntry = lastEntry * multiplier;
-      } else {
-        newEntry = lastEntry.repeat(multiplier);
-      }
-      setEntries([...entries.slice(0, -1), newEntry]);
-    }
-  };
-
-  useEffect(() => {
-    setMultiplyCallback(() => multiplyLastEntry);
-  }, [entries, setEntries, setMultiplyCallback]);
-
   const handleInternalMultiply = () => {
-    multiplyLastEntry(internalMultiplier);
+    multiplyCallback(internalMultiplier);
   };
 
   return (
