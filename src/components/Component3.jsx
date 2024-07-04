@@ -1,14 +1,27 @@
-// src/components/Component3.js
 import React, { useContext } from 'react';
-import { AppContext } from '../contexts/AppContext.jsx';
+import { AppContext } from '../contexts/AppContext';
 
 const Component3 = () => {
-  const { multiplyLastEntry } = useContext(AppContext);
+  const { multiplyCallback } = useContext(AppContext);
+
+  const handleMultiply = (multiplier) => {
+    if (!isNaN(multiplier)) {
+      multiplyCallback(multiplier);
+    }
+  };
 
   return (
-    <button style={{ border: '1px solid black' }} onClick={multiplyLastEntry}>
-      Multiply Last Entry
-    </button>
+    <div>
+      <input
+        type="number"
+        defaultValue={2}
+        min="1"
+        style={{ width: '50px', marginRight: '10px' }}
+      />
+      <button onClick={(e) => handleMultiply(parseInt(e.target.previousElementSibling.value, 10))}>
+        Multiply Last Entry
+      </button>
+    </div>
   );
 };
 
